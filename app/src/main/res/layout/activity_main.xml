@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/splash"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+   <TextView
+       android:id="@+id/t1"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="100sp"
+       android:padding="10sp"
+       android:fontFamily="serif"
+       android:text="@string/welcome_to_woman_safegurd"
+       android:textStyle="bold"
+       android:textSize="18sp"
+       android:textColor="@color/white"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+   <TextView
+       android:id="@+id/t2"
+       android:layout_below="@+id/t1"
+       android:layout_margin="10sp"
+       android:text="@string/quotes"
+       android:textStyle="italic"
+       android:gravity="center"
+       android:textColor="@color/white"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+   <de.hdodenhof.circleimageview.CircleImageView
+       android:id="@+id/i1"
+       android:layout_below="@+id/t2"
+       android:elevation="6sp"
+       android:src="@drawable/icon"
+      android:layout_centerHorizontal="true"
+       android:layout_marginTop="50sp"
+       android:layout_width="100sp"
+       android:layout_height="90sp"/>
+   <TextView
+       android:textColor="@color/white"
+       android:layout_centerHorizontal="true"
+       android:layout_alignParentBottom="true"
+       android:layout_margin="10sp"
+       android:text="@string/made_by_shalaka"
+       android:textStyle="italic"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
+</RelativeLayout>

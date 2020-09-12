@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Woman Safegurd</string>
+    <string name="welcome_to_woman_safegurd">Welcome To Woman Safegurd</string>
+    <string name="quotes">
+        Nothing is stronger than a woman who is fighting for what she believes in.
+    </string>
+    <string name="made_by_shalaka">made by shalaka 1.0</string>
+    <string name="add_number">ADD NUMBER</string>
+    <string name="add_contacts">Add Contacts</string>
+    <string name="contact">+ ADD CONTACTS</string>
+    <string name="phone">Phone :</string>
+    <string name="name">Name :</string>
+    <string name="delete">Delete</string>
+    <string name="tips_to_escape_from_threat">Tips to Escape from Threat</string>
+    <string name="laws_related_to_woman">Laws related to Woman</string>
+    <string name="videos_for_self_defence">Videos for self Defence</string>
+    <string name="send_area_picture">Send area picture</string>
+    <string name="tips_to_escape">Tips To Escape</string>
+
+    <string name="et1">1. What should a woman do if she finds herselfalone in the company of a strange male as she prepares to enter a lift in a High Rise apartment late at night..???</string>
+    <string name="et1a">Expert say : Enter the lift... If you need to reach the 13th floor,press all the buttons us to your destination.No one will dare attack you in a lift that stops on every floor.</string>
+    <string name="et2">2. What to do if a stranger tries to attack you when you are alone in your house,run into the kitchen.</string>
+    <string name="et2a">Expert say : You alone know where the chilli powder and turmeric are kept.And where the knives and plates are .All these can be turned into deadly weapons.If nothing else,start throwing plates and utensils all over.Let them break.Scream..Remember that noise is the greatest enemy of a molestar.He does not want to be caught..</string>
+    <string name="et3">3. Taking an Auto or Taxi at Night.</string>
+    <string name="et3a">Experts Say : Before getting into an auto at night, note down its registration number.Then use the mobile to call your family or friend and pass on the details to them in the language the driver understands.Even if no one answers your call,pretend you are in converstation.The driver now knows someone has his details and he will be in serious trouble if anything goes wrong.He is now bound to take you home safe and sound.A potential attacker is now your de facto protector.</string>
+    <string name="et4">4. AVOID A CAR-JACKING.</string>
+    <string name="et4a">Experts Say : Lock all doors and keep windows up when driving. Most car-jackings take place when vehicles are stopped at intersections. The criminals approach at a 45-degree angle (in the blind spot), and either pull you out of the driver’s seat or jump in the passenger’s seat.</string>
+    <string name="et5">5. If you are stalked at night....</string>
+    <string name="et5a">Expert Say : Enter a shop or a house and Explain your predicament.If its is night and shops are not open,go inside an ATM box.ATM centres always have close circuit television.Fearing identification,no One will dare attack you. </string>
+    <string name="et6">6. USE THE INTERNET WISELY.</string>
+    <string name="et6a">Although the Internet is educational and entertaining, it can also be full of danger if one isn’t careful. When communicating online, use a nickname and always keep personal information such as home address and phone number confidential. Instruct family members to do the same. Keep current on security issues, frauds, viruses, etc. by periodically referring to “The Police Notebook” Internet Safety Page.</string>
+    <string name="conclution"> After all, being mentally alert is the greatest weapon you can ever have </string>
+    <string name="LawHeading">The Indian Penal Code,1860,lays down the provisions to penalise the culprit for the heinous offences against women.Various sections under IPS specifically deals with such crimes. </string>
+    <string name="link1"><a href="https://en.wikipedia.org/wiki/Section_326_A_of_the_Indian_Penal_Code">Acid Attack(Sections 326A and 326B)</a></string>
+    <string name="link2"><a href="https://en.wikipedia.org/wiki/Laws_regarding_rape">Rape(Section 375,376,376A,376B,376C,376D and 376E)</a></string>
+    <string name="link3"><a href="https://www.lawctopus.com/academike/offences-women-ipc/">Kidnapping and abduction for different purpose(Section 363-373)</a></string>
+    <string name="link4"><a href="https://sites.google.com/site/mmmlawreport/criminal-procedure-code-1/sec498a302andsec304bofipc-whenwasmurderwithin7yearsofmarriagecourthastoframeanalternativechargeundersec304balongwithsec302ofipc-ifnotframedcourtcannotconvicttheaccusedundersec304bintheabsenceofcaseundersec302ofipc-caseremandedforframingofchargeandfordisposalgivinganopportunitytotheaccusedsubramaniappellantsoleaccusedvsstaterepbydeputysuperintendentofpolicestationjeeyapuramsubdivisionramjinagarpolicestationtrichirappallidistrictrespondentreportedinhttpjudisnicinjudischennaiqrydispfreeaspxfilename62389">Murder,Dowry death,Abetment of Suicide,etc.(Section 302,304B,306)</a></string>
+
+    <string name="link5"><a href="https://www.legalbites.in/cruelty-by-husband-relatives-section-498a/">Cruelty by husband or his relatives(Section 498A)</a></string>
+    <string name="link6"><a href="https://devgan.in/ipc/section/354/">Outraging the modesty of women(Section 354)</a></string>
+    <string name="link7"><a href="https://devgan.in/ipc/section/354A/">Sexual harassment(Section 354A)</a></string>
+    <string name="link8"><a href="https://devgan.in/ipc/section/354B/">Assault on women with intent to disrobe a woman(Section 354B)</a></string>
+    <string name="link9"><a href="https://devgan.in/ipc/section/354C/">Voyeurism(Section 354C)</a></string>
+    <string name="link10"><a href="https://devgan.in/ipc/section/354D/">Stalking(Section 354D)</a></string>
+    <string name="link11"><a href="https://devgan.in/ipc/section/509/">Word, gesture or act intended to insult the modesty of woman(Section 509)</a></string>
+    <string name="about">About</string>
+    <string name="share">Share</string>
+    <string name="send_picture">Send picture</string>
+    <string name="enter_email_to_send_picture">Enter Email To Send Picture</string>
+
+</resources>

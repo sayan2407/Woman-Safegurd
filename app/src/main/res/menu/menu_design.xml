@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/g1">
+        <item
+            android:id="@+id/tips"
+            android:icon="@drawable/escape"
+            android:title="@string/tips_to_escape"/>
+        <item
+            android:id="@+id/laws"
+            android:icon="@drawable/law"
+            android:title="@string/laws_related_to_woman"/>
+        <item
+            android:id="@+id/video"
+            android:icon="@drawable/defence"
+            android:title="@string/videos_for_self_defence"/>
+        <item
+            android:id="@+id/camera"
+            android:icon="@drawable/camera_24"
+            android:title="@string/send_area_picture"/>
+        <item
+            android:id="@+id/add"
+            android:icon="@drawable/ic_baseline_phone_android_24"
+            android:title="@string/add_number"/>
+    </group>
+    <group android:id="@+id/g2">
+        <item android:id="@+id/about"
+            android:icon="@drawable/about_24"
+            android:title="@string/about"/>
+        <item android:id="@+id/share"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share"/>
+    </group>
+
+</menu>
