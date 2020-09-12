@@ -36,9 +36,9 @@
        android:elevation="6sp"
        android:src="@drawable/icon"
       android:layout_centerHorizontal="true"
-       android:layout_marginTop="50sp"
-       android:layout_width="100sp"
-       android:layout_height="90sp"/>
+       android:layout_marginTop="60sp"
+       android:layout_width="110sp"
+       android:layout_height="110sp"/>
    <TextView
        android:textColor="@color/white"
        android:layout_centerHorizontal="true"

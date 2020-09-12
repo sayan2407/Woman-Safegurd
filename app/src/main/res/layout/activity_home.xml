@@ -36,16 +36,11 @@
             android:background="@drawable/view_design"
             android:layout_width="match_parent"
             android:layout_height="120sp"/>
-            <LinearLayout
-                android:layout_below="@+id/app"
-                android:layout_above="@id/sos"
-                android:padding="10sp"
-                android:layout_marginTop="60sp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <GridLayout
                     android:id="@+id/main_grid"
+                    android:layout_below="@+id/app"
+                    android:layout_above="@id/sos1"
+                    android:layout_marginTop="60sp"
                     android:layout_width="match_parent"
                     android:layout_height="0sp"
                     android:layout_weight="5"
@@ -57,8 +52,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card1"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="0sp"
+                        android:layout_height="0sp"
                         android:layout_columnWeight="1"
                         android:layout_marginBottom="16dp"
                         android:layout_rowWeight="1"
@@ -209,27 +204,40 @@
                                 android:textColor="@android:color/black"
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
-
                         </LinearLayout>
-
                     </androidx.cardview.widget.CardView>
-
-
                 </GridLayout>
 
-            </LinearLayout>
-
-
-        <ImageButton
-            android:id="@+id/sos"
-            android:clickable="true"
-            android:layout_above="@+id/contacts"
-            android:background="@drawable/sos"
-            android:elevation="10sp"
+        <LinearLayout
+            android:id="@+id/sos1"
+            android:orientation="horizontal"
             android:layout_margin="10sp"
-            android:layout_centerHorizontal="true"
-            android:layout_width="120sp"
-            android:layout_height="120sp"/>
+            android:layout_above="@+id/contacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/sos"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:background="@drawable/sos"
+                android:elevation="10sp"
+                android:layout_margin="10sp"
+                android:layout_width="120sp"
+                android:layout_height="120sp"/>
+            <ImageButton
+                android:id="@+id/siren"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:background="@drawable/police_car"
+                android:elevation="10sp"
+                android:layout_margin="10sp"
+                android:layout_width="120sp"
+                android:layout_height="120sp"/>
+
+        </LinearLayout>
+
+
+
 
         <Button
             android:onClick="add_number"

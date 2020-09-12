@@ -47,5 +47,6 @@
     <string name="share">Share</string>
     <string name="send_picture">Send picture</string>
     <string name="enter_email_to_send_picture">Enter Email To Send Picture</string>
+    <string name="settings">Settings</string>
 
 </resources>

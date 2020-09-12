@@ -3,6 +3,7 @@ package com.shalaka.womansafegurd;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -11,12 +12,14 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -42,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     Toolbar toolbar;
-    ImageButton sos;
+    ImageButton sos,siren;
     CardView card1,card2,card3,card4;
     ActionBarDrawerToggle actionBarDrawerToggle;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -53,6 +56,9 @@ public class HomeActivity extends AppCompatActivity {
     String address;
     ArrayList<String> numList;
     NavigationView navigationView;
+    long back;
+    Toast backToast;
+    MediaPlayer mediaPlayer;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        getSupportActionBar().setDisplayShowTitleEnabled(false);
        sos=findViewById(R.id.sos);
+       siren=findViewById(R.id.siren);
        card1=findViewById(R.id.card1);
         card2=findViewById(R.id.card2);
         card3=findViewById(R.id.card3);
@@ -81,6 +88,23 @@ public class HomeActivity extends AppCompatActivity {
 
        sos.findViewById(R.id.sos);
 
+       siren.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               if(mediaPlayer!=null)
+               {
+                   stopplayer();
+               }
+               else {
+
+                   mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.police_siren);
+                   mediaPlayer.start();
+               }
+
+           }
+       });
+
        sos.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -90,11 +114,13 @@ public class HomeActivity extends AppCompatActivity {
                    if (result.getCount()==0)
                    {
                        Toast.makeText(getApplicationContext(),"Add Number to send Emergency Alert",Toast.LENGTH_SHORT).show();
-                   } else {
+                   }
+                   else
+                       {
                        while (result.moveToNext()) {
                            numList.add(result.getString(0));
                        }
-                   }
+
                    if (ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
                    {
                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -138,6 +164,7 @@ public class HomeActivity extends AppCompatActivity {
                    {
                        ActivityCompat.requestPermissions(HomeActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
                    }
+                       }
 
 
                }catch (Exception e){
@@ -185,16 +212,35 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.video:
                         startActivity(new Intent(getApplicationContext(),VideoActivity.class));
                     case R.id.camera:
-                      //  startActivity(new Intent(getApplicationContext(),CameraActivity.class));
+                        startActivity(new Intent(getApplicationContext(),CameraActivity.class));
                         break;
                     case R.id.add:
                         startActivity(new Intent(getApplicationContext(),ContactActivity.class));
                         break;
                     case R.id.about:
-                        Toast.makeText(HomeActivity.this, "Under Development", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder alert=new AlertDialog.Builder(HomeActivity.this);
+                        alert.setCancelable(false);
+                        alert.setTitle("Woman Safegurd");
+                        alert.setMessage("Woman Safegurd app is developed for protecting lives of people in any emergency situations.In case of any unsafe situation,just TAP the"+
+                                "Emergency button to the trusted contacts saved in the application.The Emergency alert will be in the form of SMS informing that you are unsafe and need help." +
+                                "The SMS includes accurate current GPS location with address of the user along with google maps link.The trusted contacts can use this google maps link to get directions and navigate\n" +
+                                "to the exact location of the distressed person.The app can be used for your personal safety,Woman safety and children safety.\n\nWoman safety app also provide tips for woman safety,tips to escape from threat,Indian penal code sections related to woman and videos that helps for self defence\n\nWoman Safety application is meant for Emergency alerts in case of any emergencies.So Developer is not responsible for any misuse of this application.\n");
+                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        alert.create().show();
                         break;
                     case R.id.share:
-                        Toast.makeText(HomeActivity.this, "Under Development", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                        String shareBody="https://github.com/sayan2407/Woman-Safegurd";
+                        String shareSub="Woman Safety";
+                        intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                        intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                        startActivity(Intent.createChooser(intent,"Share Using"));
                         break;
                 }
                 return false;
@@ -202,6 +248,19 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public void onBackPressed() {
+
+        if (back+2000>System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        }else {
+            backToast= Toast.makeText(getApplicationContext(),"please back again to exit",Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        back=System.currentTimeMillis();
     }
     public void setupToolbar()
     {
@@ -221,5 +280,13 @@ public class HomeActivity extends AppCompatActivity {
     {
         int check= ContextCompat.checkSelfPermission(this,Permission);
         return (check== PackageManager.PERMISSION_GRANTED);
+    }
+    public void stopplayer()
+    {
+        if (mediaPlayer!=null)
+        {
+            mediaPlayer.release();
+            mediaPlayer=null ;
+        }
     }
 }

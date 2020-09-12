@@ -19,8 +19,8 @@
             android:title="@string/send_area_picture"/>
         <item
             android:id="@+id/add"
-            android:icon="@drawable/ic_baseline_phone_android_24"
-            android:title="@string/add_number"/>
+            android:icon="@drawable/settings_24"
+            android:title="@string/settings"/>
     </group>
     <group android:id="@+id/g2">
         <item android:id="@+id/about"
