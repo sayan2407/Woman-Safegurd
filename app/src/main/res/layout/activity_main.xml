@@ -13,7 +13,7 @@
        android:layout_marginTop="100sp"
        android:padding="10sp"
        android:fontFamily="serif"
-       android:text="@string/welcome_to_woman_safegurd"
+       android:text="@string/welcome_to_woman_safeguard"
        android:textStyle="bold"
        android:textSize="18sp"
        android:textColor="@color/white"
