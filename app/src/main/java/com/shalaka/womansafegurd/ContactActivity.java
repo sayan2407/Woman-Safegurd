@@ -2,10 +2,12 @@ package com.shalaka.womansafegurd;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -18,20 +20,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shalaka.womansafegurd.Database.DatabaseEmail;
 import com.shalaka.womansafegurd.Database.DatabaseHelper;
 
 import java.util.ArrayList;
 
 public class ContactActivity extends AppCompatActivity {
 
-    Button b1;
+    Button b1,email;
     private static final int REQUEST_CODE = 1;
     DatabaseHelper mydb;
+    DatabaseEmail mydb1;
     Toolbar toolbar;
     ArrayList<String> list1, list2,list3;
     ListView listView;
@@ -51,9 +56,11 @@ public class ContactActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mydb=new DatabaseHelper(getApplicationContext());
+        mydb1=new DatabaseEmail(getApplicationContext());
         list1=new ArrayList<String>();
         list2=new ArrayList<String>();
         list3=new ArrayList<String>();
+        email=findViewById(R.id.email);
 
         Cursor res = mydb.getData();
         while (res.moveToNext()) {
@@ -124,6 +131,68 @@ public class ContactActivity extends AppCompatActivity {
                     }
                 });
                 p1.show();
+
+            }
+        });
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText editText = new EditText(v.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactActivity.this);
+                builder.setTitle("Set Email");
+                builder.setMessage("Enter a Email where you would like to send picture if you are in trouble..");
+                builder.setView(editText);
+                builder.setCancelable(false);
+                builder.setPositiveButton("Set Email", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Cursor result =mydb1.getEmail();
+                        String email_id = editText.getText().toString().trim();
+                        if (result.getCount()==0)
+                        {
+
+                            if (email_id.equals(""))
+                            {
+                                Toast.makeText(ContactActivity.this, "Please Enter Email Address", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                boolean isInsert = mydb1.insertData(email_id);
+                                if (isInsert==true)
+                                {
+                                    Toast.makeText(ContactActivity.this, "Email Set", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(ContactActivity.this, "Email cannot set", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        }
+                        else {
+                            if (email_id.equals(""))
+                            {
+                                Toast.makeText(ContactActivity.this, "Please Enter Email Address", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                boolean b =mydb1.emailUpdate(email_id);
+                                if (b==true)
+                                Toast.makeText(ContactActivity.this, "Email Update Successfully", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(ContactActivity.this, "Email Not Update", Toast.LENGTH_SHORT).show();
+                            }
+                            //Toast.makeText(ContactActivity.this, "Email Update Successfully", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       dialog.dismiss();
+                    }
+                });
+                builder.create().show();
 
             }
         });

@@ -35,21 +35,7 @@
         android:background="@drawable/camera_24"
         android:layout_width="120sp"
         android:layout_height="120sp"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:elevation="4sp"
-        android:id="@+id/email"
-        android:layout_below="@+id/camera"
-        android:layout_marginTop="20sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginRight="15sp"
-        android:hint="@string/enter_email_to_send_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/mail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
+
     <ImageView
         android:id="@+id/image1"
         android:layout_marginLeft="15sp"
@@ -57,7 +43,7 @@
         android:layout_marginTop="20sp"
         android:layout_marginBottom="20sp"
         android:layout_above="@+id/send"
-        android:layout_below="@+id/email"
+        android:layout_below="@+id/camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

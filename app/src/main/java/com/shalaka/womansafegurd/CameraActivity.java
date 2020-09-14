@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.shalaka.womansafegurd.Database.DatabaseEmail;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -34,6 +36,7 @@ public class CameraActivity extends AppCompatActivity {
     ImageView imageView;
     String mail;
     Uri file;
+    DatabaseEmail mydb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +48,9 @@ public class CameraActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
        cam=findViewById(R.id.camera);
-        email=findViewById(R.id.mail);
+       // email=findViewById(R.id.mail);
         imageView=findViewById(R.id.image1);
+        mydb=new DatabaseEmail(getApplicationContext());
         send=findViewById(R.id.send);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -68,14 +72,19 @@ public class CameraActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mail=email.getText().toString().trim();
-                if (mail.isEmpty() || file==null)
+                Cursor result=mydb.getEmail();
+                if (result.getCount()==0 || file==null)
                 {
                     Toast.makeText(CameraActivity.this, "Please Enter Email or take picture", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    sendMail(file,mail);
+                    while (result.moveToNext())
+                    {
+                        mail = result.getString(0);
+                    }
+                  //  Toast.makeText(CameraActivity.this, ""+mail, Toast.LENGTH_SHORT).show();
+                    sendMail(file,mail.trim());
                 }
             }
         });

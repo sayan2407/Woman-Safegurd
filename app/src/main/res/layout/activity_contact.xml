@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="@string/add_contacts"
+                android:text="@string/settings"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -27,13 +27,22 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <Button
+        android:id="@+id/email"
+        android:textColor="@color/white"
+        android:background="@drawable/button_design"
+        android:elevation="4sp"
+        android:text="@string/set_email_to_send_picture"
+        android:layout_margin="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
         android:id="@+id/add"
         android:text="@string/contact"
         android:background="@drawable/button_design"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:elevation="4sp"
-        android:layout_alignParentBottom="true"
         android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
