@@ -41,6 +41,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;  //sandip
+
 public class HomeActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
@@ -59,6 +66,10 @@ public class HomeActivity extends AppCompatActivity {
     long back;
     Toast backToast;
     MediaPlayer mediaPlayer;
+    private SensorManager mSensorManager;
+    private float mAccel;
+    private float mAccelCurrent;
+    private float mAccelLast; // sandip
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +222,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.video:
                         startActivity(new Intent(getApplicationContext(),VideoActivity.class));
+                        break;
                     case R.id.camera:
                         startActivity(new Intent(getApplicationContext(),CameraActivity.class));
                         break;
@@ -220,11 +232,11 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.about:
                         AlertDialog.Builder alert=new AlertDialog.Builder(HomeActivity.this);
                         alert.setCancelable(false);
-                        alert.setTitle("Woman Safegurd");
-                        alert.setMessage("Woman Safegurd app is developed for protecting lives of people in any emergency situations.In case of any unsafe situation,just TAP the"+
+                        alert.setTitle("Woman Safeguard");
+                        alert.setMessage("Woman Safeguard app is developed for protecting lives of people in any emergency situations.In case of any unsafe situation,just TAP the"+
                                 "Emergency button to the trusted contacts saved in the application.The Emergency alert will be in the form of SMS informing that you are unsafe and need help." +
                                 "The SMS includes accurate current GPS location with address of the user along with google maps link.The trusted contacts can use this google maps link to get directions and navigate\n" +
-                                "to the exact location of the distressed person.The app can be used for your personal safety,Woman safety and children safety.\n\nWoman safety app also provide tips for woman safety,tips to escape from threat,Indian penal code sections related to woman and videos that helps for self defence\n\nWoman Safety application is meant for Emergency alerts in case of any emergencies.So Developer is not responsible for any misuse of this application.\n");
+                                "to the exact location of the distressed person.The app can be used for your personal safety,Woman safety and children safety.\n\nWoman Safeguard app also provide tips for woman safety,tips to escape from threat,Indian penal code sections related to woman and videos that helps for self defence\n\nWoman Safeguard application is meant for Emergency alerts in case of any emergencies.So Developer is not responsible for any misuse of this application.\n");
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -236,8 +248,8 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.share:
                         Intent intent=new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
-                        String shareBody="https://github.com/sayan2407/Woman-Safegurd";
-                        String shareSub="Woman Safety";
+                        String shareBody="https://drive.google.com/file/d/1HofwgI2luLiZtD77Tqtg9vEKOQ2fHaFj/view?usp=sharing";
+                        String shareSub="Woman Safeguard";
                         intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
                         intent.putExtra(Intent.EXTRA_TEXT,shareBody);
                         startActivity(Intent.createChooser(intent,"Share Using"));
@@ -247,7 +259,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
+      //  super.onCreate(savedInstanceState);   // Sandip
+      //  setContentView(R.layout.activity_main);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Objects.requireNonNull(mSensorManager).registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+        mAccel = 10f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
     }
     @Override
     public void onBackPressed() {
@@ -288,5 +307,104 @@ public class HomeActivity extends AppCompatActivity {
             mediaPlayer.release();
             mediaPlayer=null ;
         }
+    }
+
+    //Sandip
+    private final SensorEventListener mSensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            mAccelLast = mAccelCurrent;
+            mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
+            float delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9f + delta;
+            if (mAccel > 12) {
+              //  Toast.makeText(getApplicationContext(), "Shake event detected", Toast.LENGTH_SHORT).show();
+
+
+
+                    //   Toast.makeText(HomeActivity.this, "Under Development", Toast.LENGTH_SHORT).show();
+                    try {
+                        Cursor result=mydb.getNumber();
+                        if (result.getCount()==0)
+                        {
+                            Toast.makeText(getApplicationContext(),"Add Number to send Emergency Alert",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            while (result.moveToNext()) {
+                                numList.add(result.getString(0));
+                            }
+
+                            if (ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+                            {
+                                fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Location> task) {
+                                        Location location=task.getResult();
+                                        if (location!=null)
+                                        {
+                                            Geocoder geocoder=new Geocoder(HomeActivity.this, Locale.getDefault());
+                                            try {
+                                                List<Address> addresses=geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                                                latitude=addresses.get(0).getLatitude();
+                                                longitude=addresses.get(0).getLongitude();
+                                                address=addresses.get(0).getAddressLine(0);
+                                                String msg ="Hi,I am in trouble,please help me by reaching to below location.Google Map Location ";
+                                                String uri ="http://maps.google.com/maps?saddr="+latitude+","+longitude+"\n"+msg;;
+
+                                                // Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
+                                                //  PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+
+                                                SmsManager sms=SmsManager.getDefault();
+                                                for (int i=0;i<numList.size();i++)
+                                                {
+                                                    sms.sendTextMessage(numList.get(i), null,uri,null,null);
+
+                                                }
+
+                                                Toast.makeText(getApplicationContext(), "Emergency Alert Sent successfully!",
+                                                        Toast.LENGTH_LONG).show();
+
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                    }
+                                });
+
+                            }
+                            else
+                            {
+                                ActivityCompat.requestPermissions(HomeActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
+                            }
+                        }
+
+
+                    }catch (Exception e){
+                        Toast.makeText(HomeActivity.this, "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+            }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+    @Override
+    protected void onResume() {
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+        super.onResume();
+    }
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 }

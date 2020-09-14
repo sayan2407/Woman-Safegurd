@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Woman Safegurd</string>
-    <string name="welcome_to_woman_safegurd">Welcome To Woman Safegurd</string>
+    <string name="app_name">Woman Safeguard</string>
+    <string name="welcome_to_woman_safeguard">Welcome To Woman Safeguard</string>
     <string name="quotes">
         Nothing is stronger than a woman who is fighting for what she believes in.
     </string>
@@ -11,10 +11,10 @@
     <string name="phone">Phone :</string>
     <string name="name">Name :</string>
     <string name="delete">Delete</string>
-    <string name="tips_to_escape_from_threat">Tips to Escape from Threat</string>
-    <string name="laws_related_to_woman">Laws related to Woman</string>
-    <string name="videos_for_self_defence">Videos for self Defence</string>
-    <string name="send_area_picture">Send area picture</string>
+    <string name="tips_to_escape_from_threat">Tips To Escape From Threat</string>
+    <string name="laws_related_to_woman">Laws Related To Woman</string>
+    <string name="videos_for_self_defence">Videos For Self Defence</string>
+    <string name="send_area_picture">Send Area Picture</string>
     <string name="tips_to_escape">Tips To Escape</string>
 
     <string name="et1">1. What should a woman do if she finds herselfalone in the company of a strange male as she prepares to enter a lift in a High Rise apartment late at night..???</string>
